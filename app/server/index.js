@@ -32,6 +32,42 @@ app.get('/vendors/css/bootstrap.css', (req, res) => {
     });
 });
 
+app.get('/vendors/css/ng-table.css', (req, res) => {
+    let path = `${__base}node_modules/ng-table/bundles/ng-table.min.css`;
+
+    fs.readFileAsync(path)
+    .then(data => {
+        res.status(200).send(data);
+    })
+    .catch(e => {
+        res.status(500).send(e);
+    });
+});
+
+app.get('/vendors/js/angular.js', (req, res) => {
+    let path = `${__base}node_modules/angular/angular.min.js`;
+
+    fs.readFileAsync(path)
+    .then(data => {
+        res.status(200).send(data);
+    })
+    .catch(e => {
+        res.status(500).send(e);
+    });
+});
+
+app.get('/vendors/js/ng-table.js', (req, res) => {
+    let path = `${__base}node_modules/ng-table/bundles/ng-table.min.js`;
+
+    fs.readFileAsync(path)
+    .then(data => {
+        res.status(200).send(data);
+    })
+    .catch(e => {
+        res.status(500).send(e);
+    });
+});
+
 // app.get('/vendors/:folder/:file', (req, res) => {
 //     let path = `${__base}node_modules/`;
 //     if (req.params.file === 'bootstrap.css') {

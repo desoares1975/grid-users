@@ -1,1 +1,7 @@
-extends base.pug
+extends base
+block content
+    .row(ng-controller="indexCtrl")
+        .col-xs-12
+            h1 Teste
+block scripts
+    script(type="JavaScript" src="vendors/js/ng-table.js")
