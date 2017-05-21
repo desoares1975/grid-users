@@ -2,7 +2,11 @@
 
 ##Getting started:
 
-After cloning on the same folder:
-`bash
- npm install
-`
+After clonning on the same folder:
+```bash
+$ npm install
+```
+# #Starting application
+```bash
+$ cd grid-users && node index.js
+```
