@@ -14,7 +14,7 @@ const server = http.createServer(app);
 app.set('view engine', 'pug');
 app.set('views', `${__base}app/server/views` );
 app.get('/', (req, res) => {
-    res.render('index', {'path': process.env.API});
+    res.render('index', {'path': process.env.API || 'https://reqres.in/api/users'});
 });
 
 app.get('/public/img/default.png', (req, res) => {
@@ -103,6 +103,6 @@ app.get('/vendors/js/jquery.js', (req, res) => {
     });
 });
 
-server.listen(process.env.PORT, () => {
-    console.log('Grid User Up and Runnign!!!! on port ', process.env.PORT);
+server.listen(process.env.PORT || 8881, () => {
+    console.log('Grid User Up and Runnign!!!! on port ', process.env.PORT || 8881);
 });
