@@ -1,6 +1,7 @@
 {
   "name": "grid-users",
-  "version": "0.0.1",
+  "author": "desoares1975",
+  "version": "0.0.8",
   "description": "Test for job application",
   "main": "index.js",
   "scripts": {
