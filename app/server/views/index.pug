@@ -1,7 +1,7 @@
 extends base
 block content
-    .container
-        .row(ng-controller="indexCtrl")
+    .container(ng-controller="indexCtrl")
+        .row
             .col-xs-12
                 table(ng-table="users" width="50%").table.table-inverse
                     tr(ng-repeat="user in $data")
@@ -11,21 +11,21 @@ block content
                             a(href="#")
                                 img(src="{{ user.avatar }}" style="width: 60px;" ng-click="openModal(user)").img-circle
 
-            .modal.fade(id="user-details" aria-hidden="true")
-                .modal-dialog
-                    .modal-content
-                        .modal-header
-                            h5.modal-title(style="align: center; font-weight: bold;") {{ modalUser.first_name | firstToUpper }} {{ modalUser.last_name | firstToUpper}}
-                            button.close(type="button" data-dismiss="modal" aria-label="Close")
-                                span(aria-hidden="true") &times;
-                        .modal-body
-                            .row
-                                .col-xs-4
-                                    img(src="{{ modalUser.avatar }}").img.circle
-                                .col-xs-8 Id: {{ modalUser.id }} <br> Name: {{ modalUser.first_name | firstToUpper }} {{ modalUser.last_name | firstToUpper}} <br>
+        .modal.fade(id="user-details" aria-hidden="true")
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        h5.modal-title(style="align: center; font-weight: bold;") {{ modalUser.first_name | firstToUpper }} {{ modalUser.last_name | firstToUpper}}
+                        button.close(type="button" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    .modal-body
+                        .row
+                            .col-xs-4
+                                img(src="{{ modalUser.avatar }}").img.circle
+                            .col-xs-8 Id: {{ modalUser.id }} <br> Name: {{ modalUser.first_name | firstToUpper }} {{ modalUser.last_name | firstToUpper}} <br>
 
-                        .modal-footer
-                            button.btn.btn-secondary(data-dismiss="modal") Fechar
+                    .modal-footer
+                        button.btn.btn-secondary(data-dismiss="modal") Fechar
     block scripts
 
         script.
