@@ -2,14 +2,22 @@
 
 ## Getting started:
 
-After clonning on the same folder:
+```bash
+$ git clone git@github.com:desoares1975/grid-users.git
+```
+### After clonning on the same folder:
 
 ```bash
-$ cd grid-users && npm install
+$ cd grid-users
+```
+```bash
+$ npm install
 ```
 ## Starting application
 
 ```bash
-$ cd grid-users && node index.js
+$ node index.js
 ```
+## Advanced use:
+    Read the code and understand it...
 
