@@ -18,6 +18,9 @@ $ npm install
 ```bash
 $ node index.js
 ```
+If you're a fellow dev, nodemon will suit you, or not...
+```
+
 ## Advanced use:
     Read the code and understand it...
 
