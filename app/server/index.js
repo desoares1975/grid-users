@@ -6,7 +6,8 @@ const   express = require('express'),
         app = express(),
         http = require('http'),
         Bluebird = require('bluebird'),
-        fs = Bluebird.promisifyAll(require('fs'));
+        fs = Bluebird.promisifyAll(require('fs')),
+        path = require('path');
 
 const server = http.createServer(app);
 
@@ -16,7 +17,15 @@ app.get('/', (req, res) => {
     res.render('index', {'path': process.env.API});
 });
 
-console.log(__dirname + '/public');
+app.get('/public/img/default.png', (req, res) => {
+    fs.readFileAsync(`${__base}/app/server/public/img/user-default.png`)
+    .then(data => {
+        res.status(200).send(data);
+    })
+    .catch(e => {
+        res.status(500).send(e);
+    });
+});
 
 app.get('/public/js/app.js', (req, res) => {
     fs.readFileAsync(`${__base}app/server/public/js/app.js`)
@@ -64,6 +73,28 @@ app.get('/vendors/js/angular.js', (req, res) => {
 app.get('/vendors/js/ng-table.js', (req, res) => {
 
     fs.readFileAsync(`${__base}node_modules/ng-table/bundles/ng-table.min.js`)
+    .then(data => {
+        res.status(200).send(data);
+    })
+    .catch(e => {
+        res.status(500).send(e);
+    });
+});
+
+app.get('/vendors/js/bootstrap.js', (req, res) => {
+
+    fs.readFileAsync(`${__base}node_modules/bootstrap/dist/js/bootstrap.min.js`)
+    .then(data => {
+        res.status(200).send(data);
+    })
+    .catch(e => {
+        res.status(500).send(e);
+    });
+});
+
+app.get('/vendors/js/jquery.js', (req, res) => {
+
+    fs.readFileAsync(`${__base}node_modules/jquery/dist/jquery.min.js`)
     .then(data => {
         res.status(200).send(data);
     })

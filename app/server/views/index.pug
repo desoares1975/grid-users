@@ -1,19 +1,43 @@
 extends base
 block content
-    .row(ng-controller="indexCtrl")
-        .col-xs-12
-            table(ng-table="users").table
-                tr(ng-repeat="user in $data")
-                    td {{ user.id }}
-                    td {{ user.first_name | firstToUpper }} {{ user.last_name[0] | uppercase }}.
-                    td
-                        img(src="{{ user.avatar }}")
+    .container
+        .row(ng-controller="indexCtrl")
+            .col-xs-12
+                table(ng-table="users" width="50%").table.table-inverse
+                    tr(ng-repeat="user in $data")
+                        td(title="'Id'" style="width: 10%;") {{ user.id }}
+                        td(title="'Nome'" style="width: 60%;") {{ user.first_name | firstToUpper }} {{ user.last_name | justinitial }}
+                        td(title="'Foto'" style="width: 30%;")
+                            a(href="#")
+                                img(src="{{ user.avatar }}" style="width: 60px;" ng-click="openModal(user)").img-circle
 
+            .modal.fade(id="user-details" aria-hidden="true")
+                .modal-dialog
+                    .modal-content
+                        .modal-header
+                            h5.modal-title(style="align: center; font-weight: bold;") {{ modalUser.first_name | firstToUpper }} {{ modalUser.last_name | firstToUpper}}
+                            button.close(type="button" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true") &times;
+                        .modal-body
+                            .row
+                                .col-xs-4
+                                    img(src="{{ modalUser.avatar }}").img.circle
+                                .col-xs-8 Id: {{ modalUser.id }} <br> Name: {{ modalUser.first_name | firstToUpper }} {{ modalUser.last_name | firstToUpper}} <br>
+
+                        .modal-footer
+                            button.btn.btn-secondary(data-dismiss="modal") Fechar
     block scripts
 
         script.
             app.controller('indexCtrl', ['$scope', '$http', 'NgTableParams', function ($scope, $http, NgTableParams) {
                 var path = '#{path}';
+                $scope.modalUser = {};
+
+                $scope.openModal= function (user) {
+                    $scope.modalUser = user;
+
+                    $('#user-details').modal();
+                };
 
                 $http.get(path)
                 .then(function (data) {
@@ -21,10 +45,6 @@ block content
                         var counts = [],
                             perPage = 0;
 
-                        for (var i = 0; i < data.data.total_pages; i++) {
-                            perPage += data.data.per_page;
-                            counts.push(perPage)
-                        }
                         $scope.users = new NgTableParams({
                             'count': 3
                         }, {

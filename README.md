@@ -1,2 +1,6 @@
-# grid-users
-Aplicação 1 - Grid usuários
+# Aplicação 1 - Grid usuários
+
+##Getting started:
+``shell
+ npm install
+``
