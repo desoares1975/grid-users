@@ -2,6 +2,41 @@ extends base
 block content
     .row(ng-controller="indexCtrl")
         .col-xs-12
-            h1 Teste
-block scripts
-    script(type="JavaScript" src="vendors/js/ng-table.js")
+            table(ng-table="users").table
+                tr(ng-repeat="user in $data")
+                    td {{ user.id }}
+                    td {{ user.first_name | firstToUpper }} {{ user.last_name[0] | uppercase }}.
+                    td
+                        img(src="{{ user.avatar }}")
+
+    block scripts
+
+        script.
+            app.controller('indexCtrl', ['$scope', '$http', 'NgTableParams', function ($scope, $http, NgTableParams) {
+                var path = '#{path}';
+
+                $http.get(path)
+                .then(function (data) {
+                    $http.get(path + '?per_page=' + data.data.total).then(function (fullData) {
+                        var counts = [],
+                            perPage = 0;
+
+                        for (var i = 0; i < data.data.total_pages; i++) {
+                            perPage += data.data.per_page;
+                            counts.push(perPage)
+                        }
+                        $scope.users = new NgTableParams({
+                            'count': 3
+                        }, {
+                            'counts': [],
+                            'dataset': fullData.data.data
+                        });
+                    })
+                    .catch(function (e) {
+                        console.log(e);
+                    });
+                })
+                .catch(function (e) {
+                    console.log(e);
+                });
+            }]);

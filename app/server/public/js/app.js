@@ -1,3 +1,7 @@
-'use strict';
+var app = angular.module('GridUser', ['ngTable']);
 
-var app = angular.module('GridUser', ['NgTable']);
+app.filter('firstToUpper', function () {
+    return function (word) {
+        return word ? word.charAt(0).toUpperCase() + word.substr(1).toLowerCase() : '';
+    };
+});

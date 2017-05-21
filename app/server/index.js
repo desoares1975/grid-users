@@ -13,17 +13,24 @@ const server = http.createServer(app);
 app.set('view engine', 'pug');
 app.set('views', `${__base}app/server/views` );
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', {'path': process.env.API});
 });
 
 console.log(__dirname + '/public');
 
-app.use('/public', express.static(__dirname + '/public'));
+app.get('/public/js/app.js', (req, res) => {
+    fs.readFileAsync(`${__base}app/server/public/js/app.js`)
+    .then(data => {
+        res.status(200).send(data);
+    })
+    .catch(e => {
+        res.status(500).send(e);
+    });
+});
 
 app.get('/vendors/css/bootstrap.css', (req, res) => {
-    let path = `${__base}node_modules/bootstrap/dist/css/bootstrap.min.css`;
 
-    fs.readFileAsync(path)
+    fs.readFileAsync(`${__base}node_modules/bootstrap/dist/css/bootstrap.min.css`)
     .then(data => {
         res.status(200).send(data);
     })
@@ -33,9 +40,8 @@ app.get('/vendors/css/bootstrap.css', (req, res) => {
 });
 
 app.get('/vendors/css/ng-table.css', (req, res) => {
-    let path = `${__base}node_modules/ng-table/bundles/ng-table.min.css`;
 
-    fs.readFileAsync(path)
+    fs.readFileAsync(`${__base}node_modules/ng-table/bundles/ng-table.min.css`)
     .then(data => {
         res.status(200).send(data);
     })
@@ -45,9 +51,8 @@ app.get('/vendors/css/ng-table.css', (req, res) => {
 });
 
 app.get('/vendors/js/angular.js', (req, res) => {
-    let path = `${__base}node_modules/angular/angular.min.js`;
 
-    fs.readFileAsync(path)
+    fs.readFileAsync(`${__base}node_modules/angular/angular.min.js`)
     .then(data => {
         res.status(200).send(data);
     })
@@ -57,9 +62,8 @@ app.get('/vendors/js/angular.js', (req, res) => {
 });
 
 app.get('/vendors/js/ng-table.js', (req, res) => {
-    let path = `${__base}node_modules/ng-table/bundles/ng-table.min.js`;
 
-    fs.readFileAsync(path)
+    fs.readFileAsync(`${__base}node_modules/ng-table/bundles/ng-table.min.js`)
     .then(data => {
         res.status(200).send(data);
     })
@@ -67,27 +71,6 @@ app.get('/vendors/js/ng-table.js', (req, res) => {
         res.status(500).send(e);
     });
 });
-
-// app.get('/vendors/:folder/:file', (req, res) => {
-//     let path = `${__base}node_modules/`;
-//     if (req.params.file === 'bootstrap.css') {
-//         path += ''
-//     }
-
-//     if(req.params.)
-
-//     if (req.params.folder === 'js') {
-
-//     }
-
-//     fs.readFileAsync(path)
-//     .then(data => {
-//         res.status(200).send(data);
-//     })
-//     .catch(e => {
-//         res.status(500).send(e);
-//     });
-// });
 
 server.listen(process.env.PORT, () => {
     console.log('Grid User Up and Runnign!!!! on port ', process.env.PORT);
